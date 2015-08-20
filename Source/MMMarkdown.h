@@ -31,6 +31,35 @@ FOUNDATION_EXPORT double MMMarkdownVersionNumber;
 //! Project version string for MMMarkdown.
 FOUNDATION_EXPORT const unsigned char MMMarkdownVersionString[];
 
+typedef enum
+{
+  MMElementTypeNone,
+  MMElementTypeHeader,
+  MMElementTypeParagraph,
+  MMElementTypeBlockquote,
+  MMElementTypeNumberedList,
+  MMElementTypeBulletedList,
+  MMElementTypeListItem,
+  MMElementTypeCodeBlock,
+  MMElementTypeHorizontalRule,
+  MMElementTypeHTML,
+  MMElementTypeLineBreak,
+  MMElementTypeStrikethrough,
+  MMElementTypeStrong,
+  MMElementTypeEm,
+  MMElementTypeCodeSpan,
+  MMElementTypeImage,
+  MMElementTypeLink,
+  MMElementTypeMailTo,
+  MMElementTypeDefinition,
+  MMElementTypeEntity,
+  MMElementTypeTable,
+  MMElementTypeTableHeader,
+  MMElementTypeTableHeaderCell,
+  MMElementTypeTableRow,
+  MMElementTypeTableRowCell,
+} MMElementType;
+
 typedef NS_OPTIONS(NSUInteger, MMMarkdownExtensions)
 {
     MMMarkdownExtensionsNone = 0,
@@ -76,5 +105,7 @@ typedef NS_OPTIONS(NSUInteger, MMMarkdownExtensions)
     Returns an HTML string.
  */
 + (NSString *)HTMLStringWithMarkdown:(NSString *)string extensions:(MMMarkdownExtensions)extensions error:(__autoreleasing NSError **)error __attribute__((nonnull(1)));
+
++ (NSString *)HTMLStringWithMarkdown:(NSString *)string extensions:(MMMarkdownExtensions)extensions ignoreElementTypes:(NSArray *)ignoreElementTypes error:(__autoreleasing NSError **)error __attribute__((nonnull(1)));
 
 @end

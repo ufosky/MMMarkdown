@@ -35,19 +35,23 @@
 
 + (NSString *)HTMLStringWithMarkdown:(NSString *)string error:(__autoreleasing NSError **)error
 {
-    return [self HTMLStringWithMarkdown:string extensions:MMMarkdownExtensionsNone fromSelector:_cmd error:error];
+  return [self HTMLStringWithMarkdown:string extensions:MMMarkdownExtensionsNone ignoreElementTypes:nil fromSelector:_cmd error:error];
 }
 
 + (NSString *)HTMLStringWithMarkdown:(NSString *)string extensions:(MMMarkdownExtensions)extensions error:(NSError *__autoreleasing *)error
 {
-    return [self HTMLStringWithMarkdown:string extensions:extensions fromSelector:_cmd error:error];
+  return [self HTMLStringWithMarkdown:string extensions:extensions ignoreElementTypes:nil fromSelector:_cmd error:error];
 }
 
++ (NSString *)HTMLStringWithMarkdown:(NSString *)string extensions:(MMMarkdownExtensions)extensions ignoreElementTypes:(NSArray *)ignoreElementTypes error:(__autoreleasing NSError **)error {
+  return [self HTMLStringWithMarkdown:string extensions:extensions ignoreElementTypes:ignoreElementTypes fromSelector:_cmd error:error];
+}
 
 #pragma mark - Private Methods
 
 + (NSString *)HTMLStringWithMarkdown:(NSString *)string
                           extensions:(MMMarkdownExtensions)extensions
+                  ignoreElementTypes:(NSArray *)ignoreElementTypes
                         fromSelector:(SEL)selector
                                error:(__autoreleasing NSError **)error
 {
@@ -63,7 +67,7 @@
     
     MMParser    *parser    = [[MMParser alloc] initWithExtensions:extensions];
     MMGenerator *generator = [MMGenerator new];
-    
+  [generator addIgnoreElementTypesFromArray:ignoreElementTypes];
     MMDocument *document = [parser parseMarkdown:string error:error];
     if (!document)
         return nil;

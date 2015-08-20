@@ -24,36 +24,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
-typedef enum
-{
-    MMElementTypeNone,
-    MMElementTypeHeader,
-    MMElementTypeParagraph,
-    MMElementTypeBlockquote,
-    MMElementTypeNumberedList,
-    MMElementTypeBulletedList,
-    MMElementTypeListItem,
-    MMElementTypeCodeBlock,
-    MMElementTypeHorizontalRule,
-    MMElementTypeHTML,
-    MMElementTypeLineBreak,
-    MMElementTypeStrikethrough,
-    MMElementTypeStrong,
-    MMElementTypeEm,
-    MMElementTypeCodeSpan,
-    MMElementTypeImage,
-    MMElementTypeLink,
-    MMElementTypeMailTo,
-    MMElementTypeDefinition,
-    MMElementTypeEntity,
-    MMElementTypeTable,
-    MMElementTypeTableHeader,
-    MMElementTypeTableHeaderCell,
-    MMElementTypeTableRow,
-    MMElementTypeTableRowCell,
-} MMElementType;
+#import "MMMarkdown.h"
 
 typedef NS_ENUM(NSInteger, MMTableCellAlignment)
 {

@@ -196,7 +196,9 @@ static NSString * __HTMLEndTagForElement(MMElement *anElement)
     }
 }
 
-@interface MMGenerator ()
+@interface MMGenerator () {
+  NSMutableSet *_ignoreElementTypes;
+}
 - (void) _generateHTMLForElement:(MMElement *)anElement
                       inDocument:(MMDocument *)aDocument
                             HTML:(NSMutableString *)theHTML
@@ -206,6 +208,19 @@ static NSString * __HTMLEndTagForElement(MMElement *anElement)
 @implementation MMGenerator
 
 #pragma mark - Public Methods
+- (void)addIgnoreElementType:(MMElementType)elementType {
+  if (!_ignoreElementTypes) {
+    _ignoreElementTypes = [[NSMutableSet alloc] init];
+  }
+  [_ignoreElementTypes addObject:@(elementType)];
+}
+
+- (void)addIgnoreElementTypesFromArray:(NSArray *)elementTypes {
+  if (!_ignoreElementTypes) {
+    _ignoreElementTypes = [[NSMutableSet alloc] init];
+  }
+  [_ignoreElementTypes addObjectsFromArray:elementTypes];
+}
 
 - (NSString *)generateHTML:(MMDocument *)aDocument
 {
@@ -217,7 +232,7 @@ static NSString * __HTMLEndTagForElement(MMElement *anElement)
     
     for (MMElement *element in aDocument.elements)
     {
-        if (element.type == MMElementTypeHTML)
+        if (element.type == MMElementTypeHTML || [_ignoreElementTypes containsObject:@(element.type)])
         {
             [HTML appendString:[aDocument.markdown substringWithRange:element.range]];
         }

@@ -24,12 +24,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "MMMarkdown.h"
 
 @class MMDocument;
 
 @interface MMGenerator : NSObject
 
+- (void)addIgnoreElementType:(MMElementType)elementType;
+- (void)addIgnoreElementTypesFromArray:(NSArray *)elementTypes;
 - (NSString *)generateHTML:(MMDocument *)aDocument;
 
 @end
